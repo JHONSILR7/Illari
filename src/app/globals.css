@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    color: #444444;
+    background-color: #FFFFFF;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: #FA9A06;
+    color: #FFFFFF;
+  }
+}
+
+@layer components {
+  .section-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#FA9A06] to-[#FDCB16];
+  }
+
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-lg border border-white/20 shadow-lg;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 bg-[#042881] text-white font-semibold rounded-xl
+           hover:bg-[#0553DB] transition-all duration-300 hover:shadow-lg hover:shadow-[#042881]/20
+           active:scale-[0.98] text-sm;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 bg-[#FA9A06] text-white font-semibold rounded-xl
+           hover:bg-[#FDCB16] transition-all duration-300 hover:shadow-lg hover:shadow-[#FA9A06]/20
+           active:scale-[0.98] text-sm;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center px-6 py-3 border-2 border-[#042881] text-[#042881] font-semibold rounded-xl
+           hover:bg-[#042881] hover:text-white transition-all duration-300 active:scale-[0.98] text-sm;
+  }
+
+  .candidate-card {
+    @apply relative bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl
+           transition-all duration-500 hover:-translate-y-1
+           border border-gray-100;
+  }
+
+  .section-title {
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold font-display text-[#042881] tracking-tight;
+  }
+
+  .section-subtitle {
+    @apply text-sm sm:text-base md:text-lg text-[#444444]/80 max-w-2xl mx-auto leading-relaxed;
+  }
+
+  .nav-link {
+    @apply relative text-white/85 hover:text-white font-medium transition-colors duration-300 text-sm tracking-wide
+           after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#FA9A06]
+           after:transition-all after:duration-300 hover:after:w-full;
+  }
+
+  .admin-input {
+    @apply w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-[#0553DB]
+           focus:ring-2 focus:ring-[#0553DB]/20 outline-none transition-all duration-300
+           bg-white text-[#444444] text-sm;
+  }
+
+  .admin-btn {
+    @apply px-5 py-2.5 rounded-xl font-semibold transition-all duration-300 text-sm
+           active:scale-[0.98];
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.hero-particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.hero-particles span {
+  position: absolute;
+  display: block;
+  width: 20px;
+  height: 20px;
+  background: rgba(253, 203, 22, 0.1);
+  animation: float 6s infinite;
+  border-radius: 50%;
+}
+
+.hero-particles span:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; width: 15px; height: 15px; }
+.hero-particles span:nth-child(2) { left: 20%; top: 60%; animation-delay: 1s; width: 25px; height: 25px; }
+.hero-particles span:nth-child(3) { left: 40%; top: 10%; animation-delay: 2s; width: 10px; height: 10px; }
+.hero-particles span:nth-child(4) { left: 60%; top: 30%; animation-delay: 3s; width: 30px; height: 30px; }
+.hero-particles span:nth-child(5) { left: 70%; top: 70%; animation-delay: 4s; width: 12px; height: 12px; }
+.hero-particles span:nth-child(6) { left: 85%; top: 40%; animation-delay: 5s; width: 20px; height: 20px; }
+.hero-particles span:nth-child(7) { left: 30%; top: 80%; animation-delay: 0.5s; width: 18px; height: 18px; }
+.hero-particles span:nth-child(8) { left: 50%; top: 50%; animation-delay: 2.5s; width: 22px; height: 22px; }
+.hero-particles span:nth-child(9) { left: 90%; top: 15%; animation-delay: 1.5s; width: 14px; height: 14px; }
+.hero-particles span:nth-child(10) { left: 5%; top: 45%; animation-delay: 3.5s; width: 16px; height: 16px; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+  25% { transform: translateY(-20px) rotate(90deg); opacity: 0.6; }
+  50% { transform: translateY(-10px) rotate(180deg); opacity: 0.8; }
+  75% { transform: translateY(-30px) rotate(270deg); opacity: 0.6; }
+}
