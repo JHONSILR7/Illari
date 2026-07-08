@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'ILLARI UNAJMA | El amanecer que transforma la UNAJMA',
+    title: 'ILLARI UNAJMA',
   description: 'Movimiento político universitario de la Universidad Nacional José María Arguedas. Conoce a nuestros candidatos y propuestas.',
   keywords: 'ILLARI, UNAJMA, movimiento universitario, estudiantes, política universitaria, José María Arguedas',
   icons: {
@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     apple: '/logo.jpeg',
   },
   openGraph: {
-    title: 'ILLARI UNAJMA | El amanecer que transforma la UNAJMA',
+  title: 'ILLARI UNAJMA',
     description: 'Movimiento político universitario comprometido con la excelencia académica y la transparencia.',
     type: 'website',
     locale: 'es_PE',

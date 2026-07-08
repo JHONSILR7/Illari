@@ -9,7 +9,7 @@ export const siteContent: Record<string, {
   hero: {
     section_key: 'hero',
     title: 'ILLARI',
-    subtitle: 'El amanecer que transforma la UNAJMA',
+    subtitle: '',
     content: 'Un movimiento estudiantil comprometido con la excelencia académica, la transparencia y el desarrollo integral de nuestra universidad.',
     image_url: null,
     is_visible: true,

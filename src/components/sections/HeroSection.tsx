@@ -36,11 +36,6 @@ export default function HeroSection({ content }: Props) {
             </span>
             <div className="w-6 sm:w-16 h-px sm:h-0.5 bg-gradient-to-r from-[#FDCB16] to-[#FA9A06] rounded-full" />
           </div>
-          <div className="inline-flex items-center px-2.5 py-1 sm:px-8 sm:py-2.5 border border-white/25 rounded-full backdrop-blur-sm bg-white/5 shadow-lg shadow-black/10">
-            <p className="text-[10px] sm:text-base md:text-lg lg:text-xl text-white font-display font-light tracking-wide leading-relaxed drop-shadow-md">
-              {content.hero?.subtitle || 'El amanecer que transforma la UNAJMA'}
-            </p>
-          </div>
         </motion.div>
 
         {/* CTA buttons */}
