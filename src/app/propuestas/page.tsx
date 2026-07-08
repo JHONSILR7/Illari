@@ -4,9 +4,8 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   ChevronDown, ChevronUp, ChevronRight, Lightbulb, ListChecks,
-  BookOpen, Building2, HeartPulse, BarChart3, Calculator,
-  Leaf, TreesIcon as Agriculture, Monitor, ScrollText, Eye,
-  Target, Sparkles,
+  BookOpen, Building2, BarChart3, Monitor, Shield, Eye,
+  Target, Sparkles, Download,
 } from 'lucide-react'
 import Link from 'next/link'
 import Navbar from '@/components/Navbar'
@@ -14,15 +13,10 @@ import Footer from '@/components/Footer'
 import { detailedProposals } from '@/data/proposals-detailed'
 
 const schoolIcons: Record<string, any> = {
-  'educacion-primaria': BookOpen,
   'asamblea-universitaria': Building2,
-  'enfermeria': HeartPulse,
-  'ciencias-empresa': BarChart3,
-  'matematica-estadistica': Calculator,
-  'ingenieria-ambiental': Leaf,
-  'ingenieria-agroindustrial': Agriculture,
-  'ingenieria-sistemas': Monitor,
-  'contabilidad': ScrollText,
+  'consejo-universitario': Shield,
+  'facultad-ingenieria': Monitor,
+  'facultad-ciencias-empresa': BarChart3,
 }
 
 const categoryBadges: Record<string, { label: string; icon: any }> = {
@@ -94,6 +88,16 @@ export default function ProposalsPage() {
               <p className="text-sm sm:text-base md:text-lg text-white/70 max-w-2xl mx-auto leading-relaxed">
                 Un plan integral con propuestas concretas para cada escuela profesional y la universidad en su conjunto
               </p>
+              <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+                <a
+                  href="/PLAN%20DE%20GOBIERNO%20AU%2C%20CU%20Y%20CF%20ILLARI%20UNAJMA.pdf"
+                  download
+                  className="inline-flex items-center gap-2.5 px-5 sm:px-6 py-2.5 sm:py-3 bg-white/10 backdrop-blur-md text-white font-semibold rounded-xl border border-white/20 hover:bg-white/20 hover:border-white/30 transition-all duration-300 hover:shadow-xl active:scale-[0.98] text-sm sm:text-base group"
+                >
+                  <Download className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-y-0.5 transition-transform duration-300" />
+                  Descargar Plan de Gobierno
+                </a>
+              </div>
             </motion.div>
           </div>
         </section>
