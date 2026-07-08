@@ -19,10 +19,10 @@ const fadeUp = {
 }
 
 const positionIcons: Record<string, React.ReactNode> = {
-  'consejo-universitario': <Building2 className="w-4 h-4" />,
-  'asamblea-universitaria': <ClipboardList className="w-4 h-4" />,
-  'consejo-ingenieria': <Settings className="w-4 h-4" />,
-  'consejo-ciencias-empresa': <BarChart3 className="w-4 h-4" />,
+  'consejo-universitario': <Building2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />,
+  'asamblea-universitaria': <ClipboardList className="w-3.5 h-3.5 sm:w-4 sm:h-4" />,
+  'consejo-ingenieria': <Settings className="w-3.5 h-3.5 sm:w-4 sm:h-4" />,
+  'consejo-ciencias-empresa': <BarChart3 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />,
 }
 
 export default function CandidatesPage() {
@@ -50,7 +50,7 @@ function CandidatesContent() {
 
   const categoryColors: Record<string, string> = {
     'consejo-universitario': 'from-[#042881] to-[#0553DB]',
-    'asamblea-universitaria': 'from-[#FA9A06] to-[#FDCB16]',
+    'asamblea-universitaria': 'from-[#042881] to-[#0553DB]',
     'consejo-ingenieria': 'from-[#8C0B1A] to-[#042881]',
     'consejo-ciencias-empresa': 'from-[#0553DB] to-[#042881]',
   }
@@ -60,7 +60,7 @@ function CandidatesContent() {
       <Navbar />
       <main className="min-h-screen bg-white">
         {/* Hero */}
-        <section className="relative pt-20 pb-12 sm:pt-24 sm:pb-16 md:pt-32 md:pb-20 bg-hero-gradient overflow-hidden">
+        <section className="relative pt-16 pb-10 sm:pt-24 sm:pb-16 md:pt-32 md:pb-20 bg-hero-gradient overflow-hidden">
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDM0djItSDI0di0yaDEyek0zNiAyNHYySDI0di0yaDEyeiIvPjwvZz48L2c+PC9zdmc+')] opacity-30" />
           <div className="relative z-10 section-container text-center">
             <motion.div
@@ -68,10 +68,10 @@ function CandidatesContent() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <div className="w-12 h-12 md:w-14 md:h-14 bg-white/10 backdrop-blur-md rounded-xl flex items-center justify-center mx-auto mb-4 border border-white/10">
-                <Users className="w-6 h-6 md:w-7 md:h-7 text-white" />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-white/10 backdrop-blur-md rounded-xl flex items-center justify-center mx-auto mb-3 sm:mb-4 border border-white/10">
+                <Users className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-white" />
               </div>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-3">
+              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-2 sm:mb-3">
                 Nuestros Candidatos
               </h1>
               <p className="text-sm sm:text-base md:text-lg text-white/70 max-w-xl mx-auto leading-relaxed">
@@ -103,13 +103,13 @@ function CandidatesContent() {
         </section>
 
         {/* Listado */}
-        <section className="py-8 sm:py-10 md:py-14">
+        <section className="py-6 sm:py-10 md:py-14">
           <div className="section-container">
             {currentCandidates.length === 0 ? (
-              <motion.div {...fadeUp} className="text-center py-12 sm:py-16">
-                <Users className="w-12 h-12 text-gray-200 mx-auto mb-3" />
-                <h3 className="text-lg font-bold text-[#444444] mb-1">Próximamente</h3>
-                <p className="text-sm text-gray-400">Los candidatos serán anunciados pronto. Vuelve a visitarnos.</p>
+              <motion.div {...fadeUp} className="text-center py-8 sm:py-16">
+                <Users className="w-10 h-10 sm:w-12 sm:h-12 text-gray-200 mx-auto mb-2 sm:mb-3" />
+                <h3 className="text-base sm:text-lg font-bold text-[#444444] mb-1">Próximamente</h3>
+                <p className="text-xs sm:text-sm text-gray-400 px-4">Los candidatos serán anunciados pronto. Vuelve a visitarnos.</p>
               </motion.div>
             ) : (
               <div className="space-y-10">
@@ -117,56 +117,57 @@ function CandidatesContent() {
                   const pos = staticPositions.find(p => p.slug === slug)
                   return (
                     <motion.div key={slug} {...fadeUp}>
-                      <div className="mb-4 sm:mb-5">
-                        <h2 className="text-xl sm:text-2xl font-display font-bold text-[#042881] mb-1">
+                      <div className="mb-3 sm:mb-5">
+                        <h2 className="text-lg sm:text-2xl font-display font-bold text-[#042881] mb-0.5 sm:mb-1">
                           {pos?.name || slug}
                         </h2>
-                        <p className="text-sm text-[#444444]/70">{pos?.description}</p>
+                        <p className="text-xs sm:text-sm text-[#444444]/70">{pos?.description}</p>
                       </div>
-                      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-5">
+                      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-5">
                         {cands.map((candidate) => (
                           <Link
                             key={candidate.id}
                             href={`/candidatos/${candidate.id}`}
                             className="group"
                           >
-                            <motion.div whileHover={{ y: -4 }} className="candidate-card">
-                              <div className={`aspect-[3/4] bg-gradient-to-br ${categoryColors[slug] || 'from-[#042881] to-[#0553DB]'} relative overflow-hidden`}>
-                                {candidate.photo_url ? (
-                                  <Image
-                                    src={candidate.photo_url}
-                                    alt={candidate.full_name}
-                                    fill
-                                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                                    className="object-contain group-hover:scale-105 transition-transform duration-700"
-                                  />
-                                ) : (
-                                  <div className="flex items-center justify-center h-full">
-                                    <div className="w-14 h-14 bg-white/15 backdrop-blur-md rounded-full flex items-center justify-center">
-                                      <span className="text-2xl text-white font-bold font-display">
-                                        {candidate.full_name.charAt(0)}
-                                      </span>
-                                    </div>
+                            <motion.div whileHover={{ y: -4 }} className="candidate-card text-center pb-4 sm:pb-5 px-3 sm:px-5 pt-4 sm:pt-6">
+                              {/* Photo */}
+                              <div className="relative mx-auto mb-3 sm:mb-4">
+                                <div className={`w-32 h-32 sm:w-44 sm:h-44 md:w-56 md:h-56 rounded-full bg-gradient-to-br ${categoryColors[slug] || 'from-[#042881] to-[#0553DB]'} p-1 sm:p-1.5 shadow-lg`}>
+                                  <div className="w-full h-full rounded-full overflow-hidden bg-gray-50">
+                                    {candidate.photo_url ? (
+                                      <Image
+                                        src={candidate.photo_url}
+                                        alt={candidate.full_name}
+                                        width={224}
+                                        height={224}
+                                        className={`w-full h-full object-cover ${slug === 'consejo-ciencias-empresa' ? 'object-[50%_15%]' : 'object-top'} group-hover:scale-110 transition-transform duration-700`}
+                                      />
+                                    ) : (
+                                      <div className="flex items-center justify-center h-full">
+                                        <span className="text-3xl sm:text-5xl text-[#042881] font-bold font-display">
+                                          {candidate.full_name.charAt(0)}
+                                        </span>
+                                      </div>
+                                    )}
                                   </div>
-                                )}
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                                <div className="absolute bottom-3 left-3 right-3 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-3 group-hover:translate-y-0">
-                                  <span className="text-white text-xs font-medium bg-white/20 backdrop-blur-md px-2.5 py-1 rounded-full">
-                                    {candidate.list_name || 'Candidato'}
+                                </div>
+                                <div className="absolute -bottom-1 left-1/2 -translate-x-1/2">
+                                  <span className="text-[10px] font-semibold bg-[#FA9A06] text-white px-2.5 py-0.5 rounded-full shadow-md whitespace-nowrap">
+                                    {candidate.list_name || 'ILLARI'}
                                   </span>
                                 </div>
                               </div>
-                              <div className="p-4">
-                                <h3 className="font-bold text-[#042881] text-sm group-hover:text-[#0553DB] transition-colors">
-                                  {candidate.full_name}
-                                </h3>
-                                <p className="text-xs text-[#444444]/70 mt-0.5 line-clamp-2">
-                                  {candidate.description || 'Candidato comprometido con el cambio'}
-                                </p>
-                                <div className="mt-3 flex items-center text-[#FA9A06] font-semibold text-xs">
-                                  Conoce más
-                                  <ChevronRight className="w-3.5 h-3.5 ml-1 group-hover:ml-2 transition-all" />
-                                </div>
+                              {/* Info */}
+                              <h3 className="font-bold text-[#042881] text-[11px] sm:text-sm leading-tight">
+                                {candidate.full_name}
+                              </h3>
+                              <p className="text-[10px] sm:text-xs text-[#444444]/60 mt-0.5 sm:mt-1 line-clamp-2 min-h-[1.5rem] sm:min-h-[2rem]">
+                                {candidate.description || 'Candidato comprometido con el cambio'}
+                              </p>
+                              <div className="mt-2 sm:mt-3 flex items-center justify-center text-[#FA9A06] font-semibold text-[10px] sm:text-xs">
+                                Conoce más
+                                <ChevronRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 ml-1 group-hover:ml-2 transition-all" />
                               </div>
                             </motion.div>
                           </Link>

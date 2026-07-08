@@ -10,40 +10,34 @@ interface Props {
 
 export default function HeroSection({ content }: Props) {
   return (
-    <section id="hero" className="relative overflow-hidden sm:min-h-screen flex items-center justify-center">
+    <section id="hero" className="relative overflow-hidden min-h-[80vh] sm:min-h-screen flex items-center justify-center">
       {/* Background Image */}
       <div className="absolute inset-0">
         <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: 'url(/images/UNAJMA.png)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-          }}
+          className="absolute inset-0 bg-[url('/images/UNAJMA.png')] bg-cover bg-center bg-no-repeat"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent via-50% to-black/40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent via-40% to-black/60 sm:bg-gradient-to-b sm:from-black/10 sm:via-transparent sm:via-50% sm:to-black/40" />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 text-center px-4 sm:px-6 max-w-4xl mx-auto py-12 sm:py-0">
+      <div className="relative z-10 text-center px-4 sm:px-6 max-w-4xl mx-auto py-16 sm:py-0">
         {/* Title and subtitle */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
-          <h1 className="text-[2.5rem] sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold text-white tracking-tight leading-none mb-3 sm:mb-4 drop-shadow-lg">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold text-white tracking-tight leading-none mb-3 sm:mb-4 drop-shadow-lg">
             ILLARI
           </h1>
           <div className="flex items-center justify-center gap-2 sm:gap-3 mb-3 sm:mb-5">
-            <div className="w-10 sm:w-16 h-0.5 bg-gradient-to-r from-[#FA9A06] to-[#FDCB16] rounded-full" />
+            <div className="w-8 sm:w-16 h-0.5 bg-gradient-to-r from-[#FA9A06] to-[#FDCB16] rounded-full" />
             <span className="inline-flex items-center gap-1 px-2.5 py-0.5 sm:px-3 sm:py-1 bg-gradient-to-r from-[#FA9A06] to-[#FDCB16] text-[#042881] text-[10px] sm:text-xs font-black rounded-full tracking-wider shadow-lg shadow-[#FA9A06]/20">
               LISTA <span className="text-sm sm:text-lg leading-none">2</span>
             </span>
-            <div className="w-10 sm:w-16 h-0.5 bg-gradient-to-r from-[#FDCB16] to-[#FA9A06] rounded-full" />
+            <div className="w-8 sm:w-16 h-0.5 bg-gradient-to-r from-[#FDCB16] to-[#FA9A06] rounded-full" />
           </div>
-          <div className="inline-flex items-center px-4 py-1.5 sm:px-8 sm:py-2.5 border border-white/25 rounded-full backdrop-blur-sm bg-white/5 shadow-lg shadow-black/10">
+          <div className="inline-flex items-center px-3 py-1 sm:px-8 sm:py-2.5 border border-white/25 rounded-full backdrop-blur-sm bg-white/5 shadow-lg shadow-black/10">
             <p className="text-xs sm:text-base md:text-lg lg:text-xl text-white font-display font-light tracking-wide leading-relaxed drop-shadow-md">
               {content.hero?.subtitle || 'El amanecer que transforma la UNAJMA'}
             </p>
@@ -55,11 +49,11 @@ export default function HeroSection({ content }: Props) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 mt-6 sm:mt-10"
+          className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mt-8 sm:mt-10"
         >
           <Link
             href="/candidatos"
-            className="group relative inline-flex items-center gap-1.5 sm:gap-2 px-5 sm:px-8 py-2.5 sm:py-3.5 bg-gradient-to-r from-[#FA9A06] to-[#FDCB16] text-white font-semibold rounded-xl text-[11px] sm:text-sm hover:shadow-xl hover:shadow-[#FA9A06]/30 transition-all duration-300 active:scale-[0.97] w-full sm:w-auto justify-center"
+            className="group relative inline-flex items-center gap-1 sm:gap-2 px-3 sm:px-8 py-2 sm:py-3.5 bg-gradient-to-r from-[#FA9A06] to-[#FDCB16] text-white font-semibold rounded-lg sm:rounded-xl text-[11px] sm:text-sm hover:shadow-xl hover:shadow-[#FA9A06]/30 transition-all duration-300 active:scale-[0.97] w-full sm:w-auto justify-center"
           >
             <Sparkles className="w-3 h-3 sm:w-4 sm:h-4" />
             <span>Conoce a nuestros candidatos</span>
@@ -67,7 +61,7 @@ export default function HeroSection({ content }: Props) {
           </Link>
           <Link
             href="/propuestas"
-            className="inline-flex items-center gap-1.5 sm:gap-2 px-5 sm:px-8 py-2.5 sm:py-3.5 border-2 border-white/40 text-white font-semibold rounded-xl text-[11px] sm:text-sm backdrop-blur-sm bg-white/10 hover:bg-white/20 hover:border-white/60 transition-all duration-300 active:scale-[0.97] w-full sm:w-auto justify-center"
+            className="inline-flex items-center gap-1 sm:gap-2 px-3 sm:px-8 py-2 sm:py-3.5 border-2 border-white/40 text-white font-semibold rounded-lg sm:rounded-xl text-[11px] sm:text-sm backdrop-blur-sm bg-white/10 hover:bg-white/20 hover:border-white/60 transition-all duration-300 active:scale-[0.97] w-full sm:w-auto justify-center"
           >
             Nuestras propuestas
           </Link>
@@ -79,7 +73,7 @@ export default function HeroSection({ content }: Props) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2"
       >
         <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 2, repeat: Infinity }}>
           <ArrowDown className="w-5 h-5 text-white/50" />

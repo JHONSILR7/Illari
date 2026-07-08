@@ -32,9 +32,9 @@ export const candidates: Candidate[] = [
   { id: 'c-6', full_name: 'COTARMA HUACCAYCACHACC NOEMÍ', photo_url: '/images/candidatos/c-6.webp', position_id: pos.asamblea.id, description: '', biography: '', list_name: 'ILLARI', list_number: 1, is_active: true, sort_order: 6, position: pos.asamblea, created_at: '', updated_at: '' },
 
   // Asamblea Universitaria - Accesitarios
-  { id: 'c-7', full_name: 'CARRIÓN ZUÑIGA LUCIA CLARA', photo_url: null, position_id: pos.asamblea.id, description: '', biography: '', list_name: 'ILLARI', list_number: 1, is_active: true, sort_order: 7, position: pos.asamblea, created_at: '', updated_at: '' },
-  { id: 'c-8', full_name: 'GUTIERREZ OSCCO WILIAM ALEX', photo_url: null, position_id: pos.asamblea.id, description: '', biography: '', list_name: 'ILLARI', list_number: 1, is_active: true, sort_order: 8, position: pos.asamblea, created_at: '', updated_at: '' },
-  { id: 'c-9', full_name: 'PAREDES ALEGRIA LIZ LUCERO', photo_url: null, position_id: pos.asamblea.id, description: '', biography: '', list_name: 'ILLARI', list_number: 1, is_active: true, sort_order: 9, position: pos.asamblea, created_at: '', updated_at: '' },
+  { id: 'c-7', full_name: 'CARRIÓN ZUÑIGA LUCIA CLARA', photo_url: '/images/candidatos/c-7.webp', position_id: pos.asamblea.id, description: '', biography: '', list_name: 'ILLARI', list_number: 1, is_active: true, sort_order: 7, position: pos.asamblea, created_at: '', updated_at: '' },
+  { id: 'c-8', full_name: 'GUTIERREZ OSCCO WILIAM ALEX', photo_url: '/images/candidatos/c-8.webp', position_id: pos.asamblea.id, description: '', biography: '', list_name: 'ILLARI', list_number: 1, is_active: true, sort_order: 8, position: pos.asamblea, created_at: '', updated_at: '' },
+  { id: 'c-9', full_name: 'PAREDES ALEGRIA LIZ LUCERO', photo_url: '/images/candidatos/c-9.webp', position_id: pos.asamblea.id, description: '', biography: '', list_name: 'ILLARI', list_number: 1, is_active: true, sort_order: 9, position: pos.asamblea, created_at: '', updated_at: '' },
 
   // Consejo Universitario - Titulares
   { id: 'c-10', full_name: 'HUARHUACHI RAMOS FÉLIX ANGEL', photo_url: '/images/candidatos/c-10.webp', position_id: pos.consejo.id, description: '', biography: '', list_name: 'ILLARI', list_number: 1, is_active: true, sort_order: 1, position: pos.consejo, created_at: '', updated_at: '' },
@@ -49,8 +49,8 @@ export const candidates: Candidate[] = [
   { id: 'c-15', full_name: 'BLAS ALFARO NATIVIDAD', photo_url: '/images/candidatos/c-15.webp', position_id: pos.ingenieria.id, description: '', biography: '', list_name: 'ILLARI', list_number: 1, is_active: true, sort_order: 2, position: pos.ingenieria, created_at: '', updated_at: '' },
 
   // Consejo de Facultad - Ingeniería - Accesitarios
-  { id: 'c-16', full_name: 'RIVERA OSCCO MARYCARMEN', photo_url: null, position_id: pos.ingenieria.id, description: '', biography: '', list_name: 'ILLARI', list_number: 1, is_active: true, sort_order: 3, position: pos.ingenieria, created_at: '', updated_at: '' },
-  { id: 'c-17', full_name: 'ROJAS HUARACA ALEXANDER BRYAN', photo_url: null, position_id: pos.ingenieria.id, description: '', biography: '', list_name: 'ILLARI', list_number: 1, is_active: true, sort_order: 4, position: pos.ingenieria, created_at: '', updated_at: '' },
+  { id: 'c-16', full_name: 'RIVERA OSCCO MARYCARMEN', photo_url: '/images/candidatos/c-16.webp', position_id: pos.ingenieria.id, description: '', biography: '', list_name: 'ILLARI', list_number: 1, is_active: true, sort_order: 3, position: pos.ingenieria, created_at: '', updated_at: '' },
+  { id: 'c-17', full_name: 'ROJAS HUARACA ALEXANDER BRYAN', photo_url: '/images/candidatos/c-17.webp', position_id: pos.ingenieria.id, description: '', biography: '', list_name: 'ILLARI', list_number: 1, is_active: true, sort_order: 4, position: pos.ingenieria, created_at: '', updated_at: '' },
 
   // Consejo de Facultad - Ciencias de la Empresa - Titulares
   { id: 'c-18', full_name: 'CHIPANA ROMANÍ MICHAEL', photo_url: '/images/candidatos/c-18.webp', position_id: pos.empresa.id, description: '', biography: '', list_name: 'ILLARI', list_number: 1, is_active: true, sort_order: 1, position: pos.empresa, created_at: '', updated_at: '' },
@@ -58,5 +58,5 @@ export const candidates: Candidate[] = [
 
   // Consejo de Facultad - Ciencias de la Empresa - Accesitarios
   { id: 'c-20', full_name: 'HUAMANÍ ALLCCAHUAMÁN YORDI ANDERSON', photo_url: null, position_id: pos.empresa.id, description: '', biography: '', list_name: 'ILLARI', list_number: 1, is_active: true, sort_order: 3, position: pos.empresa, created_at: '', updated_at: '' },
-  { id: 'c-21', full_name: 'VASQUEZ HUAMANI MELISA', photo_url: null, position_id: pos.empresa.id, description: '', biography: '', list_name: 'ILLARI', list_number: 1, is_active: true, sort_order: 4, position: pos.empresa, created_at: '', updated_at: '' },
+  { id: 'c-21', full_name: 'VASQUEZ HUAMANI MELISA', photo_url: '/images/candidatos/c-21.webp', position_id: pos.empresa.id, description: '', biography: '', list_name: 'ILLARI', list_number: 1, is_active: true, sort_order: 4, position: pos.empresa, created_at: '', updated_at: '' },
 ]
