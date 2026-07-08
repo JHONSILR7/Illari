@@ -1,13 +1,52 @@
 'use client'
 
-import { useMemo } from 'react'
-import { motion } from 'framer-motion'
-import { Lightbulb, ChevronRight, BookOpen, Shield, Users, TrendingUp, Sun, CheckCircle, Sparkles, Target, Eye, ArrowLeft } from 'lucide-react'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import {
+  ChevronDown, ChevronUp, ChevronRight, Lightbulb, ListChecks,
+  BookOpen, Building2, HeartPulse, BarChart3, Calculator,
+  Leaf, TreesIcon as Agriculture, Monitor, ScrollText, Eye,
+  Target, Sparkles,
+} from 'lucide-react'
 import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
-import { proposals as staticProposals } from '@/data/proposals'
-import { siteContent } from '@/data/site-content'
+import { detailedProposals } from '@/data/proposals-detailed'
+
+const schoolIcons: Record<string, any> = {
+  'educacion-primaria': BookOpen,
+  'asamblea-universitaria': Building2,
+  'enfermeria': HeartPulse,
+  'ciencias-empresa': BarChart3,
+  'matematica-estadistica': Calculator,
+  'ingenieria-ambiental': Leaf,
+  'ingenieria-agroindustrial': Agriculture,
+  'ingenieria-sistemas': Monitor,
+  'contabilidad': ScrollText,
+}
+
+const categoryBadges: Record<string, { label: string; icon: any }> = {
+  'gestion-academica': { label: 'Gestión Académica', icon: BookOpen },
+  'gestion-investigacion': { label: 'Investigación', icon: Eye },
+  'gestion-administrativa': { label: 'Gestión Administrativa', icon: Target },
+  'propuesta-emblematica': { label: 'Propuesta Emblemática', icon: Sparkles },
+}
+
+function cleanCategoryName(name: string): string {
+  const patterns = [
+    /^EJE \d+\.\s*/i,
+    /^[IVX]+\.\s*/i,
+    /^\d+\.\s*Eje:\s*/i,
+    /^PROP\s*\d+:\s*/i,
+    /^Propuestas/i,
+    /^PROPUESTAS\s*(DE\s.*)?$/i,
+  ]
+  let cleaned = name
+  for (const pattern of patterns) {
+    cleaned = cleaned.replace(pattern, '').trim()
+  }
+  return cleaned || name
+}
 
 const fadeUp = {
   initial: { opacity: 0, y: 40 },
@@ -16,22 +55,29 @@ const fadeUp = {
   transition: { duration: 0.5 },
 }
 
-const iconMap: Record<string, any> = {
-  BookOpen, Shield, Users, TrendingUp, Sun, CheckCircle, Target, Eye, Lightbulb, Sparkles
-}
-
 export default function ProposalsPage() {
-  const content = siteContent
-  const proposals = staticProposals
-  const displayProposals = proposals
-  const categories = useMemo(() => Array.from(new Set(displayProposals.map(p => p.category).filter(Boolean))), [displayProposals])
+  const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>(
+    () => {
+      const initial: Record<string, boolean> = {}
+      detailedProposals.forEach((school, si) => {
+        school.categories.forEach((_, ci) => {
+          initial[`${si}-${ci}`] = true
+        })
+      })
+      return initial
+    }
+  )
+
+  const toggleSection = (key: string) => {
+    setExpandedSections(prev => ({ ...prev, [key]: !prev[key] }))
+  }
 
   return (
     <>
       <Navbar />
       <main className="min-h-screen bg-white">
         {/* Hero */}
-        <section className="relative pt-24 pb-16 md:pt-32 md:pb-20 bg-[#042881] overflow-hidden">
+        <section className="relative pt-24 pb-14 md:pt-32 md:pb-20 bg-[#042881] overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-[#042881] via-[#0553DB] to-[#042881]" />
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDM0djItSDI0di0yaDEyek0zNiAyNHYySDI0di0yaDEyeiIvPjwvZz48L2c+PC9zdmc+')] opacity-30" />
           <div className="absolute top-20 right-20 w-64 h-64 bg-[#FA9A06]/10 rounded-full blur-3xl" />
@@ -43,125 +89,195 @@ export default function ProposalsPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <div className="w-12 h-12 md:w-14 md:h-14 bg-white/10 backdrop-blur-md rounded-xl flex items-center justify-center mx-auto mb-4 border border-white/10">
-                <Lightbulb className="w-6 h-6 md:w-7 md:h-7 text-[#FDCB16]" />
-              </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-3">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-4">
                 Propuestas
               </h1>
-              <p className="text-base md:text-lg text-white/70 max-w-xl mx-auto leading-relaxed">
-                Ideas concretas y realizables para transformar la UNAJMA en una universidad de excelencia
+              <p className="text-base md:text-lg text-white/70 max-w-2xl mx-auto leading-relaxed">
+                Un plan integral con propuestas concretas para cada escuela profesional y la universidad en su conjunto
               </p>
             </motion.div>
           </div>
         </section>
 
-        {/* Misión y Visión */}
-        <section className="py-14 bg-[#F4F4F4]">
+        {/* Content */}
+        <section className="py-14 md:py-20">
           <div className="section-container">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <motion.div {...fadeUp} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                <div className="w-10 h-10 bg-[#042881]/5 rounded-xl flex items-center justify-center mb-4">
-                  <Target className="w-5 h-5 text-[#042881]" />
-                </div>
-                <h3 className="text-xl font-display font-bold text-[#042881] mb-2">
-                  {content.mission?.title || 'Misión'}
-                </h3>
-                <p className="text-[#444444]/80 leading-relaxed text-sm">
-                  {content.mission?.content || 'Construir una universidad inclusiva y de calidad, promoviendo la participación democrática estudiantil.'}
-                </p>
-              </motion.div>
+            <div className="space-y-16">
+              {detailedProposals.map((school, si) => {
+                const SchoolIcon = schoolIcons[school.id] || Lightbulb
+                return (
+                  <motion.div
+                    key={school.id}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: si * 0.08 }}
+                  >
+                    {/* School Header */}
+                    <div className="flex items-center gap-4 mb-8 pb-4 border-b border-gray-100">
+                      <div className={`w-12 h-12 bg-gradient-to-r ${school.gradient} rounded-2xl flex items-center justify-center shadow-lg flex-shrink-0`}>
+                        <SchoolIcon className="w-6 h-6 text-white" />
+                      </div>
+                      <div>
+                        <h2 className="text-xl sm:text-2xl font-display font-bold text-[#042881]">
+                          {school.school}
+                        </h2>
+                        {school.subtitle && (
+                          <p className="text-xs sm:text-sm text-[#444444]/60 mt-0.5">{school.subtitle}</p>
+                        )}
+                      </div>
+                    </div>
 
-              <motion.div {...fadeUp} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                <div className="w-10 h-10 bg-[#FA9A06]/5 rounded-xl flex items-center justify-center mb-4">
-                  <Eye className="w-5 h-5 text-[#FA9A06]" />
-                </div>
-                <h3 className="text-xl font-display font-bold text-[#042881] mb-2">
-                  {content.vision?.title || 'Visión'}
-                </h3>
-                <p className="text-[#444444]/80 leading-relaxed text-sm">
-                  {content.vision?.content || 'Ser el movimiento estudiantil líder en la transformación de la UNAJMA.'}
-                </p>
-              </motion.div>
-            </div>
-          </div>
-        </section>
+                    {/* Categories */}
+                    <div className="space-y-5">
+                      {school.categories.map((cat, ci) => {
+                        const sectionKey = `${si}-${ci}`
+                        const isExpanded = expandedSections[sectionKey] !== false
+                        const cleanName = cleanCategoryName(cat.name)
+                        return (
+                          <div key={ci} className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+                            {/* Category Header */}
+                            <button
+                              onClick={() => toggleSection(sectionKey)}
+                              className="w-full flex items-center justify-between gap-3 p-4 sm:p-5 bg-white hover:bg-[#F8F8F8] transition-colors duration-200"
+                            >
+                              <div className="flex items-center gap-3 min-w-0">
+                                <div
+                                  className="w-1 h-10 rounded-full flex-shrink-0"
+                                  style={{ backgroundColor: cat.color }}
+                                />
+                                <div className="text-left min-w-0">
+                                  <h3 className="text-sm sm:text-base font-bold text-[#042881]">
+                                    {cleanName}
+                                  </h3>
+                                  <p className="text-[11px] text-[#444444]/50 mt-0.5">
+                                    {cat.proposals.length} {cat.proposals.length === 1 ? 'propuesta' : 'propuestas'}
+                                  </p>
+                                </div>
+                              </div>
+                              <div
+                                className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform duration-300"
+                                style={{ backgroundColor: `${cat.color}08` }}
+                              >
+                                {isExpanded ? (
+                                  <ChevronUp className="w-4 h-4" style={{ color: cat.color }} />
+                                ) : (
+                                  <ChevronDown className="w-4 h-4" style={{ color: cat.color }} />
+                                )}
+                              </div>
+                            </button>
 
-        {/* Propuestas detalladas */}
-        <section className="py-14">
-          <div className="section-container">
-            <motion.div {...fadeUp} className="text-center mb-10">
-              <span className="inline-block px-3 py-1 bg-[#FA9A06]/10 text-[#FA9A06] text-xs font-semibold rounded-full mb-3">
-                Plan de trabajo
-              </span>
-              <h2 className="section-title mb-3">Nuestras Propuestas</h2>
-              <p className="section-subtitle">
-                Un plan integral para construir la universidad que merecemos
-              </p>
-            </motion.div>
-
-            <div className="space-y-8">
-              {categories.length > 0 ? categories.map((cat) => (
-                <div key={cat}>
-                  <h3 className="text-xl font-bold text-[#042881] mb-4 capitalize">{cat}</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {displayProposals.filter(p => p.category === cat).map((prop, i) => {
-                      const Icon = iconMap[prop.icon] || Lightbulb
-                      return (
-                        <motion.div key={i} {...fadeUp} className="bg-white rounded-xl p-5 shadow-sm hover:shadow-md transition-all duration-500 border border-gray-100 hover:-translate-y-1 group">
-                          <div className="w-10 h-10 bg-[#042881]/5 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300">
-                            <Icon className="w-5 h-5 text-[#042881]" />
+                            {/* Proposals */}
+                            <AnimatePresence>
+                              {isExpanded && (
+                                <motion.div
+                                  initial={{ height: 0, opacity: 0 }}
+                                  animate={{ height: 'auto', opacity: 1 }}
+                                  exit={{ height: 0, opacity: 0 }}
+                                  transition={{ duration: 0.3 }}
+                                  className="overflow-hidden border-t border-gray-50"
+                                >
+                                  <div className="p-4 sm:p-5 bg-white">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+                                      {cat.proposals.map((prop, pi) => (
+                                        <motion.div
+                                          key={pi}
+                                          initial={{ opacity: 0, y: 10 }}
+                                          animate={{ opacity: 1, y: 0 }}
+                                          transition={{ delay: pi * 0.03 }}
+                                          className="group relative bg-[#F8F8F8] hover:bg-white rounded-xl p-4 sm:p-5 border border-transparent hover:border-gray-200 transition-all duration-300 hover:shadow-md hover:-translate-y-0.5"
+                                        >
+                                          <div className="flex items-start gap-3">
+                                            <div
+                                              className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform duration-300"
+                                              style={{ backgroundColor: `${cat.color}10` }}
+                                            >
+                                              <Lightbulb className="w-4 h-4" style={{ color: cat.color }} />
+                                            </div>
+                                            <div className="min-w-0 flex-1">
+                                              <h4 className="text-sm font-bold text-[#042881] mb-1.5 leading-snug">
+                                                {prop.title}
+                                              </h4>
+                                              {prop.description && (
+                                                <p className="text-sm text-[#444444]/75 leading-relaxed">
+                                                  {prop.description}
+                                                </p>
+                                              )}
+                                              {prop.items && prop.items.length > 0 && (
+                                                <div className="mt-3 pt-3 border-t border-gray-100">
+                                                  {prop.items.length <= 4 ? (
+                                                    <ul className="space-y-1.5">
+                                                      {prop.items.map((item, ii) => (
+                                                        <li key={ii} className="flex items-start gap-2 text-sm text-[#444444]/70">
+                                                          <span
+                                                            className="w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0"
+                                                            style={{ backgroundColor: cat.color }}
+                                                          />
+                                                          <span className="leading-relaxed">{item}</span>
+                                                        </li>
+                                                      ))}
+                                                    </ul>
+                                                  ) : (
+                                                    <div className="overflow-x-auto">
+                                                      <table className="w-full text-sm text-[#444444]/70">
+                                                        <tbody>
+                                                          {prop.items.map((item, ii) => (
+                                                            <tr key={ii} className="border-b border-gray-50 last:border-0">
+                                                              <td className="py-1.5 pl-0 pr-2 align-top">
+                                                                <span
+                                                                  className="w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0"
+                                                                  style={{ backgroundColor: cat.color }}
+                                                                />
+                                                              </td>
+                                                              <td className="py-1.5 leading-relaxed">{item}</td>
+                                                            </tr>
+                                                          ))}
+                                                        </tbody>
+                                                      </table>
+                                                    </div>
+                                                  )}
+                                                </div>
+                                              )}
+                                            </div>
+                                          </div>
+                                        </motion.div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                </motion.div>
+                              )}
+                            </AnimatePresence>
                           </div>
-                          <h4 className="text-base font-bold text-[#042881] mb-2">{prop.title}</h4>
-                          <p className="text-sm text-[#444444]/80 leading-relaxed">{prop.summary || prop.content}</p>
-                        </motion.div>
-                      )
-                    })}
-                  </div>
-                </div>
-              )) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {displayProposals.map((prop, i) => {
-                    const Icon = iconMap[prop.icon] || Lightbulb
-                    return (
-                      <motion.div key={i} {...fadeUp} className="bg-white rounded-xl p-5 shadow-sm hover:shadow-md transition-all duration-500 border border-gray-100 hover:-translate-y-1 group">
-                        <div className="w-10 h-10 bg-[#042881]/5 rounded-xl flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300">
-                          <Icon className="w-5 h-5 text-[#042881]" />
-                        </div>
-                        <h4 className="text-base font-bold text-[#042881] mb-2">{prop.title}</h4>
-                        <p className="text-sm text-[#444444]/80 leading-relaxed">{prop.summary || prop.content}</p>
-                      </motion.div>
-                    )
-                  })}
-                </div>
-              )}
+                        )
+                      })}
+                    </div>
+                  </motion.div>
+                )
+              })}
             </div>
-
-            {proposals.length === 0 && (
-              <motion.div {...fadeUp} className="text-center mt-8 p-6 bg-[#F4F4F4] rounded-2xl">
-                <Sparkles className="w-8 h-8 text-[#FA9A06] mx-auto mb-2" />
-                <p className="text-sm text-[#444444]/70">
-                  Próximamente estaremos publicando nuestras propuestas detalladas.
-                </p>
-              </motion.div>
-            )}
           </div>
         </section>
 
         {/* CTA */}
-        <section className="py-14 bg-[#F4F4F4]">
-          <div className="section-container text-center">
+        <section className="py-16 md:py-20 bg-gradient-to-br from-[#042881] via-[#0553DB] to-[#042881] relative overflow-hidden">
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDM0djItSDI0di0yaDEyek0zNiAyNHYySDI0di0yaDEyeiIvPjwvZz48L2c+PC9zdmc+')] opacity-30" />
+          <div className="absolute top-10 right-10 w-48 h-48 bg-[#FA9A06]/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-10 left-10 w-64 h-64 bg-[#FDCB16]/10 rounded-full blur-3xl" />
+          <div className="relative z-10 section-container text-center">
             <motion.div {...fadeUp}>
-              <h2 className="text-2xl md:text-3xl font-display font-bold text-[#042881] mb-3">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-white mb-3">
                 ¿Quieres aportar?
               </h2>
-              <p className="text-sm md:text-base text-[#444444]/80 mb-6 max-w-xl mx-auto">
-                Tus ideas también son importantes. Escríbenos y sé parte del cambio.
+              <p className="text-sm sm:text-base text-white/70 mb-8 max-w-xl mx-auto leading-relaxed">
+                Tus ideas también son importantes. Escríbenos y sé parte del cambio que queremos construir.
               </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-                <Link href="/candidatos" className="btn-primary">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <Link
+                  href="/candidatos"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-white text-[#042881] font-semibold rounded-xl hover:bg-gray-100 transition-all duration-300 hover:shadow-xl active:scale-[0.98] text-sm"
+                >
                   Conoce a los candidatos
-                  <ChevronRight className="w-4 h-4 ml-1.5" />
+                  <ChevronRight className="w-4 h-4" />
                 </Link>
               </div>
             </motion.div>
