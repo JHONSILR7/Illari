@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Home, Users, UserCheck, Lightbulb } from 'lucide-react'
+import { Menu, X, Home, Users, UserCheck, Lightbulb, ChevronRight } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -46,7 +46,7 @@ export default function Navbar() {
   }, [activeIndex])
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-[#042881]/95 backdrop-blur-md shadow-lg shadow-black/10 border-b border-white/5">
+    <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-[#042881] shadow-lg shadow-black/10 border-b border-white/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           <Link href="/" className="flex items-center gap-3 group relative">
@@ -101,33 +101,55 @@ export default function Navbar() {
 
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-[#042881]/98 backdrop-blur-xl border-t border-white/5"
-          >
-            <div className="px-4 py-6 space-y-1">
-              {navLinks.map((link) => {
-                const isActive = navLinks.indexOf(link) === activeIndex
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
-                      isActive
-                        ? 'text-white bg-white/8'
-                        : 'text-white/60 hover:text-white hover:bg-white/5'
-                    }`}
-                    onClick={() => setIsOpen(false)}
-                  >
-                    <link.icon className={`w-4 h-4 ${isActive ? 'text-[#FA9A06]' : 'text-white/40'}`} />
-                    {link.label}
-                  </Link>
-                )
-              })}
-            </div>
-          </motion.div>
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/40 backdrop-blur-sm md:hidden z-40"
+              onClick={() => setIsOpen(false)}
+            />
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 260 }}
+              className="fixed top-0 right-0 h-full w-[70vw] md:hidden z-50 bg-[#042881] shadow-2xl"
+            >
+              <div className="flex items-center justify-between px-4 h-16 border-b border-white/5">
+                <span className="text-white font-display font-bold text-lg">Menú</span>
+                <button
+                  className="text-white/80 hover:text-white p-2 rounded-lg hover:bg-white/5 transition-all"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+              <div className="px-3 py-4 space-y-1">
+                {navLinks.map((link) => {
+                  const isActive = navLinks.indexOf(link) === activeIndex
+                  return (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className={`flex items-center justify-between px-4 py-3.5 rounded-xl text-sm font-medium transition-all ${
+                        isActive
+                          ? 'text-white bg-white/8'
+                          : 'text-white/60 hover:text-white hover:bg-white/5'
+                      }`}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      <div className="flex items-center gap-3">
+                        <link.icon className={`w-4 h-4 ${isActive ? 'text-[#FA9A06]' : 'text-white/40'}`} />
+                        {link.label}
+                      </div>
+                      <ChevronRight className={`w-4 h-4 ${isActive ? 'text-[#FA9A06]' : 'text-white/20'}`} />
+                    </Link>
+                  )
+                })}
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </nav>
