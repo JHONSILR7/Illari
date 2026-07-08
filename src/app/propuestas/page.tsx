@@ -77,22 +77,21 @@ export default function ProposalsPage() {
       <Navbar />
       <main className="min-h-screen bg-white">
         {/* Hero */}
-        <section className="relative pt-24 pb-14 md:pt-32 md:pb-20 bg-[#042881] overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#042881] via-[#0553DB] to-[#042881]" />
+        <section className="relative pt-20 pb-12 sm:pt-28 sm:pb-16 md:pt-36 md:pb-20 bg-hero-gradient overflow-hidden">
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDM0djItSDI0di0yaDEyek0zNiAyNHYySDI0di0yaDEyeiIvPjwvZz48L2c+PC9zdmc+')] opacity-30" />
-          <div className="absolute top-20 right-20 w-64 h-64 bg-[#FA9A06]/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-20 left-20 w-80 h-80 bg-[#FDCB16]/10 rounded-full blur-3xl" />
-
           <div className="relative z-10 section-container text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-4">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-white/10 backdrop-blur-md rounded-xl flex items-center justify-center mx-auto mb-3 sm:mb-4 border border-white/10">
+                <Lightbulb className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-white" />
+              </div>
+              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-2 sm:mb-3">
                 Propuestas
               </h1>
-              <p className="text-base md:text-lg text-white/70 max-w-2xl mx-auto leading-relaxed">
+              <p className="text-sm sm:text-base md:text-lg text-white/70 max-w-2xl mx-auto leading-relaxed">
                 Un plan integral con propuestas concretas para cada escuela profesional y la universidad en su conjunto
               </p>
             </motion.div>

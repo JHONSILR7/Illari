@@ -44,7 +44,7 @@ export default function Footer() {
                 { href: '/', label: 'Inicio' },
                 { href: '/candidatos', label: 'Candidatos' },
                 { href: '/#propuestas', label: 'Propuestas' },
-                { href: '/#nosotros', label: 'Nosotros' },
+                { href: '/nosotros', label: 'Nosotros' },
               ].map((link) => (
                 <li key={link.href}>
                   <Link href={link.href} className="text-white/60 hover:text-white transition-colors text-xs md:text-sm">

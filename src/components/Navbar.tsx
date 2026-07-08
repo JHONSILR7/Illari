@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, Home, Users, UserCheck, Lightbulb } from 'lucide-react'
@@ -8,8 +8,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 const navLinks = [
-  { href: '/', label: 'Inicio', icon: Home, section: 'hero' },
-  { href: '/#nosotros', label: 'Nosotros', icon: Users, section: 'nosotros' },
+  { href: '/', label: 'Inicio', icon: Home },
+  { href: '/nosotros', label: 'Nosotros', icon: Users },
   { href: '/candidatos', label: 'Candidatos', icon: UserCheck },
   { href: '/propuestas', label: 'Propuestas', icon: Lightbulb },
 ]
@@ -17,62 +17,19 @@ const navLinks = [
 export default function Navbar() {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
-  const [activeSection, setActiveSection] = useState('hero')
   const [indicator, setIndicator] = useState({ left: 0, width: 0 })
   const listRef = useRef<HTMLDivElement>(null)
 
-  const isHome = pathname === '/'
-  const isCandidatos = pathname === '/candidatos'
-  const isPropuestas = pathname === '/propuestas'
-
-  const getActiveIndex = useCallback(() => {
-    if (isCandidatos) return 2
-    if (isPropuestas) return 3
-    if (isHome) {
-      return navLinks.findIndex(l => (l as any).section === activeSection)
-    }
-    return 0
-  }, [isHome, isCandidatos, isPropuestas, activeSection])
-
-  useEffect(() => {
-    if (!isHome) return
-
-    const hero = document.getElementById('hero')
-    const nosotros = document.getElementById('nosotros')
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        let latest = activeSection
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            const el = entry.target
-            if (el.id === 'hero') latest = 'hero'
-            else if (el.id === 'nosotros') latest = 'nosotros'
-          }
-        }
-        if (latest !== activeSection) setActiveSection(latest)
-      },
-      { threshold: 0.2, rootMargin: '-80px 0px -30% 0px' }
-    )
-
-    if (hero) observer.observe(hero)
-    if (nosotros) observer.observe(nosotros)
-
-    return () => observer.disconnect()
-  }, [isHome, activeSection])
-
-  useEffect(() => {
-    if (isCandidatos) setActiveSection('candidatos')
-    else if (isPropuestas) setActiveSection('propuestas')
-    else if (isHome) setActiveSection(activeSection || 'hero')
-  }, [isCandidatos, isPropuestas, isHome])
+  const activeIndex = navLinks.findIndex(l => {
+    if (l.href === '/') return pathname === '/'
+    return pathname.startsWith(l.href)
+  })
 
   useEffect(() => {
     const update = () => {
       if (!listRef.current) return
-      const idx = getActiveIndex()
       const links = listRef.current.querySelectorAll<HTMLAnchorElement>('a')
-      const active = links[idx]
+      const active = links[activeIndex]
       if (!active) return
       const rect = listRef.current.getBoundingClientRect()
       const linkRect = active.getBoundingClientRect()
@@ -86,7 +43,7 @@ export default function Navbar() {
       window.removeEventListener('resize', update)
       clearInterval(id)
     }
-  }, [getActiveIndex])
+  }, [activeIndex])
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-[#042881]/95 backdrop-blur-md shadow-lg shadow-black/10 border-b border-white/5">
@@ -112,8 +69,7 @@ export default function Navbar() {
             />
 
             {navLinks.map((link, i) => {
-              const idx = getActiveIndex()
-              const isActive = i === idx
+              const isActive = i === activeIndex
               return (
                 <Link
                   key={link.href}
@@ -153,8 +109,7 @@ export default function Navbar() {
           >
             <div className="px-4 py-6 space-y-1">
               {navLinks.map((link) => {
-                const idx = getActiveIndex()
-                const isActive = navLinks.indexOf(link) === idx
+                const isActive = navLinks.indexOf(link) === activeIndex
                 return (
                   <Link
                     key={link.href}

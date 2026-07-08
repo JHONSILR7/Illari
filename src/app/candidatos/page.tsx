@@ -60,7 +60,7 @@ function CandidatesContent() {
       <Navbar />
       <main className="min-h-screen bg-white">
         {/* Hero */}
-        <section className="relative pt-16 pb-10 sm:pt-24 sm:pb-16 md:pt-32 md:pb-20 bg-hero-gradient overflow-hidden">
+        <section className="relative pt-20 pb-12 sm:pt-28 sm:pb-16 md:pt-36 md:pb-20 bg-hero-gradient overflow-hidden">
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDM0djItSDI0di0yaDEyek0zNiAyNHYySDI0di0yaDEyeiIvPjwvZz48L2c+PC9zdmc+')] opacity-30" />
           <div className="relative z-10 section-container text-center">
             <motion.div
@@ -132,7 +132,7 @@ function CandidatesContent() {
                           >
                             <motion.div whileHover={{ y: -4 }} className="candidate-card text-center pb-4 sm:pb-5 px-3 sm:px-5 pt-4 sm:pt-6">
                               {/* Photo */}
-                              <div className="relative mx-auto mb-3 sm:mb-4">
+                              <div className="relative flex justify-center mb-3 sm:mb-4">
                                 <div className={`w-32 h-32 sm:w-44 sm:h-44 md:w-56 md:h-56 rounded-full bg-gradient-to-br ${categoryColors[slug] || 'from-[#042881] to-[#0553DB]'} p-1 sm:p-1.5 shadow-lg`}>
                                   <div className="w-full h-full rounded-full overflow-hidden bg-gray-50">
                                     {candidate.photo_url ? (

@@ -27,7 +27,7 @@ export default function HeroSection({ content }: Props) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold text-white tracking-tight leading-none mb-3 sm:mb-4 drop-shadow-lg">
+          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold text-white tracking-tight leading-none mb-3 sm:mb-4 drop-shadow-lg">
             ILLARI
           </h1>
           <div className="flex items-center justify-center gap-2 sm:gap-3 mb-3 sm:mb-5">

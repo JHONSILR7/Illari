@@ -40,15 +40,28 @@ export default function CandidateDetailPage() {
     <>
       <Navbar />
       <main className="min-h-screen bg-white">
-        <section className="pt-20 pb-6 sm:pt-32 sm:pb-8 bg-[#F4F4F4]">
-          <div className="section-container">
-            <Link
-              href="/candidatos"
-              className="inline-flex items-center gap-2 text-[#042881] hover:text-[#0553DB] font-medium transition-colors mb-4 sm:mb-6"
+        <section className="relative pt-20 pb-12 sm:pt-28 sm:pb-16 md:pt-36 md:pb-20 bg-hero-gradient overflow-hidden">
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDM0djItSDI0di0yaDEyek0zNiAyNHYySDI0di0yaDEyeiIvPjwvZz48L2c+PC9zdmc+')] opacity-30" />
+          <div className="relative z-10 section-container">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
             >
-              <ArrowLeft className="w-5 h-5" />
-              Volver a candidatos
-            </Link>
+              <Link
+                href="/candidatos"
+                className="inline-flex items-center gap-2 text-white/70 hover:text-white font-medium transition-colors mb-4 sm:mb-6"
+              >
+                <ArrowLeft className="w-5 h-5" />
+                Volver a candidatos
+              </Link>
+              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-2 sm:mb-3">
+                {candidate.full_name}
+              </h1>
+              <p className="text-sm sm:text-base md:text-lg text-white/70 max-w-2xl leading-relaxed">
+                {candidate.position?.name || 'Candidato'}
+              </p>
+            </motion.div>
           </div>
         </section>
 
